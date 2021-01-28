@@ -3,6 +3,7 @@ package diiage.potherat.demo.demoapp3.ui.home;
 import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import javax.inject.Inject;
@@ -20,15 +21,15 @@ public class HomeViewModel extends ViewModel {
         this.quoteRepository = quoteRepository;
     }
 
-    public LiveData<Integer> getNumberOfQuotes() {
-        return this.quoteRepository.getCountQuote();
+    public LiveData<String> getNumberOfQuotes() {
+        return Transformations.map(quoteRepository.getCountQuote(), quote -> quote.toString());
     }
 
-    public LiveData<Integer> getDistinctSources() {
-        return this.quoteRepository.getCountSource();
+    public LiveData<String> getDistinctSources() {
+        return Transformations.map(quoteRepository.getCountSource(), source -> source.toString());
     }
 
     public LiveData<Quote> getLastQuote() {
-        return this.quoteRepository.getLastQuote();
+        return quoteRepository.getLastQuote();
     }
 }
